@@ -1,0 +1,167 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller.checkout;
+
+import cart.CartObject;
+import checkout.CheckoutError;
+import checkout.order_detail.OrderedDetailDAO;
+import checkout.ordered.OrderedDAO;
+import dao.account.AccountDTO;
+import dao.product.ProductDAO;
+import dao.product.ProductDTO;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Map;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ *
+ * @author Nam
+ */
+public class CheckOutServlet extends HttpServlet {
+    Map<String, String> sitemap;
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        
+        //get site map
+        sitemap = (Map<String, String>) request.getServletContext().getAttribute("SITE_MAP");
+        String url = sitemap.get("CheckoutViewAction");
+        //get request parameters
+        String cusName = request.getParameter("txtCusName");
+        String cusAddress = request.getParameter("txtCusAddress");
+        String phone_no = request.getParameter("txtCusPhone_no");
+        String total = request.getParameter("total_price");
+        //intialize Error object
+        CheckoutError errors = new CheckoutError();
+        boolean isError = false;
+
+        try {
+            HttpSession session = request.getSession(false);
+            AccountDTO user = (AccountDTO) session.getAttribute("USER"); 
+            //validate
+            if(user!=null) {
+                cusName = user.getFullname();
+                cusAddress = user.getAddress();
+                phone_no = user.getPhone_no();
+            }else {
+                if (cusName.trim().length() <= 0) {
+                    errors.setCustNameIsNullError("Name cannot be blanked!");
+                    isError = true;
+                }//end if cusName is not null
+                if (cusAddress.trim().length() <= 0) {
+                    errors.setAddressIsNullError("Address cannot be blanked!");
+                    isError = true;
+                }//end if cusAddress is not null
+                if (phone_no.trim().length() <= 0) {
+                    errors.setPhoneNumberIsNullError("Phone Number cannot be blanked!");
+                    isError = true;
+                }
+            }
+            
+            //check if error existed
+            if (isError) {
+                request.setAttribute("ERROR", errors);
+            } else {
+                // 1.Goes to cart place
+                
+                if (session != null) {
+                    //2.Take customer's cart
+                    CartObject cart = (CartObject) session.getAttribute("CART");
+                    if (cart != null) {
+                        Map<String, Integer> items = cart.getItems();
+                        if (items != null) {
+                            //3.Create order
+                            OrderedDAO orderDAO = new OrderedDAO();
+                            int orderId = orderDAO.addOrder(cusName, 
+                                                            new Timestamp(System.currentTimeMillis()),  
+                                                            cusAddress,
+                                                            phone_no, 
+                                                            Double.parseDouble(total));
+                            //4.Get each item and add to order
+                            ProductDAO productDAO = new ProductDAO();
+                            ProductDTO dto = null;
+                            OrderedDetailDAO detailDAO = new OrderedDetailDAO();
+                            for (String key : items.keySet()) {
+                                dto = productDAO.getItem(key);
+                                detailDAO.addOrderDetail(items.get(key),
+                                                        items.get(key) * dto.getPrice(),
+                                                        key,
+                                                        orderId);
+                            }//end for items.keySet
+                            session.removeAttribute("CART");
+                            request.setAttribute("CHECKOUT_SUCCESSFULLY", "checked out successfully");
+                        }//end if items is not null
+                    }//end if cart is not null
+                }//end if session is not null
+            }//end else isError == false
+
+        } catch (SQLException ex) {
+            log("CheckoutServlet _ SQL _ " + ex.getMessage());
+        } catch (NamingException ex) {
+            log("CheckoutServlet _ Naming _ " + ex.getMessage());
+        }finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

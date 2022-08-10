@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/authentication/AuthStartupServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/checkout/CheckOutViewServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/checkout/order_detail/OrderedDetailDAO.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/checkout/CheckoutError.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/authentication/AuthLoginServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/checkout/CheckOutServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/dao/product/ProductDTO.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/authentication/AuthRegisterServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/dao/account/AccountDAO.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/cart/DeleteCartItemsServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/web/META-INF/context.xml</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/account/AccountDeleteServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/cart/ViewCartServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/dao/account/EncryptedPassword.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/checkout/ordered/OrderedDAO.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/filter/DispatchFilter.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/utils/DBHelper.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/cart/AddCartItemsServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/account/AccountSearchServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/product/StoreViewServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/account/AccountUpdateServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/dao/product/ProductDAO.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/listener/ContextListener.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/dao/account/AccountDTO.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/dao/account/InvalidAccountHandling.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/controller/authentication/AuthLogoutServlet.java</file>
+            <file>file:/D:/Ky5/PRJ301/Online_Book_Store_MVC2/src/java/filter/CheckoutFilter.java</file>
+        </group>
+    </open-files>
+</project-private>
